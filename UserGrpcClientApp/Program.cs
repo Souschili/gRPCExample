@@ -32,7 +32,6 @@ namespace UserGrpcClientApp
 
     internal class Program
     {
-        //private static readonly UserService.UserServiceClient _userClient;
         static async Task Main(string[] args)
         {
             try
@@ -43,31 +42,45 @@ namespace UserGrpcClientApp
                     ShowMenu();
                     if (!Int32.TryParse(Console.ReadLine(), out int menuKey))
                     {
-                        Console.WriteLine("Wrong input ,press 0 to exit");
+                        Console.WriteLine("Wrong input try again or press 0 to exit");
                         continue;
                     }
-                    if (menuKey == 0) break; // выходим из цикла и завершаем работу
+                    if (menuKey == 0 || menuKey<0) break; // выходим из цикла и завершаем работу
 
+                    // тут передаем номер меню 
+                    await InvokeMenu(menuKey);
+                    Console.WriteLine("press any key to continue");
+                    Console.ReadKey();
                 }
 
-                // создаем канал и клиент(с помощью него мы будем отправлять и получать ответы от сервера)
-                //var channel = GrpcChannel.ForAddress("https://localhost:7206");
-                //var client = new UserService.UserServiceClient(channel);
-
-                // // вызываем метод для получения всех клиентов
-                // using var call = client.GetAll(new Google.Protobuf.WellKnownTypes.Empty());
-
-                // // получаем все данные через асинхронный поток IAsyncEnumerable
-                // await foreach (var item in call.ResponseStream.ReadAllAsync())
-                // {
-                //     Console.WriteLine($"Responce from server: {item.Id} {item.Name} ");
-                // }
-                // // don't close app
-                //await Task.Delay(Timeout.InfiniteTimeSpan);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        static async Task InvokeMenu(int menuPoint)
+        {
+            // async variant
+            await (menuPoint switch
+            {
+                1 => GetUsers(),
+                _ => Task.Run(() => Console.WriteLine("Unknown method searched"))
+            });
+        }
+
+        static async Task GetUsers()
+        {
+            var client = GrpcServiceClientFactory.GetUserServiceClient();
+
+            // запрос серверу
+            using var call = client.GetAll(new Google.Protobuf.WellKnownTypes.Empty());
+
+            // получаем все данные через асинхронный поток IAsyncEnumerable
+            await foreach (var user in call.ResponseStream.ReadAllAsync())
+            {
+                Console.WriteLine($"Responce from server: {user.Id} {user.Name} ");
             }
         }
 
