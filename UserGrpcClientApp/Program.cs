@@ -22,6 +22,8 @@ namespace UserGrpcClientApp
                 {
                     Console.WriteLine($"Responce from server: {item.Id} {item.Name} ");
                 }
+                // don't close app
+               await Task.Delay(Timeout.InfiniteTimeSpan);
             }
             catch (Exception ex)
             {
