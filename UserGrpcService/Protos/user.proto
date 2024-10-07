@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "UserGrpcService.Protos";
+
+package user;
+
+// импортируем пустоту (отсутсвие аргументов ) при вызове 
+import "google/protobuf/empty.proto";
+
+// определяем сервис 
+service UserService{
+	// сервер передает поток на клиент 
+	rpc GetAll(google.protobuf.Empty) returns(stream UserResponse);
+}
+
+message UserResponse{
+	int32 Id = 1;
+	string Name = 2;
+}
+
