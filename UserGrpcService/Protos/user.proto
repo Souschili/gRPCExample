@@ -11,10 +11,15 @@ import "google/protobuf/empty.proto";
 service UserService{
 	// сервер передает поток на клиент 
 	rpc GetAll(google.protobuf.Empty) returns(stream UserResponse);
+	rpc GetUserById(UserIdRequest) returns(UserResponse);
 }
 
 message UserResponse{
 	int32 Id = 1;
 	string Name = 2;
+}
+
+message UserIdRequest{
+	int32 Id=1;
 }
 
