@@ -20,5 +20,13 @@ namespace UserGrpcService.Services
                 await responseStream.WriteAsync(user);
             }
         }
+
+        public override async Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
+        {
+            var user = _userRepo.GetUserById(request.Id);
+            if (user != null)
+                return user;
+            throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
+        }
     }
 }

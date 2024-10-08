@@ -15,5 +15,8 @@ namespace UserGrpcService.Services
         {
             return _userRepo;
         }
+
+        public UserResponse? GetUserById(int id)=>
+            _userRepo.FirstOrDefault(x=> x.Id==id);
     }
 }
