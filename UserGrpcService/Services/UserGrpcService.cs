@@ -21,11 +21,12 @@ namespace UserGrpcService.Services
             }
         }
 
-        public override async Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
+        public override Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
         {
             var user = _userRepo.GetUserById(request.Id);
             if (user != null)
-                return user;
+                return Task.FromResult(user); //так как результат уже есть то async\await ненужен 
+            // генерируем RcpException ошибку для клиента , ну и для сервера(если логировать будем)
             throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
         }
     }
