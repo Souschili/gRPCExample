@@ -36,8 +36,8 @@ namespace UserGrpcService.Services
         //    _userRepo.RemoveAll(x=> ids.Contains(x.Id));
         //}
 
-        //public UserResponse? GetUserById(int id) =>
-        //    _userRepo.FirstOrDefault(x => x.Id == id);
+        public User? GetUserById(int id) =>
+            _userRepo.FirstOrDefault(x => x.Id == id);
 
         //public void UpdateUser(UserUpdateRequest request)
         //{
