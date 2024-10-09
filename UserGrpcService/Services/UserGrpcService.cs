@@ -20,6 +20,12 @@ namespace UserGrpcService.Services
             {
                 userIds.Add(request.Id);
             }
+
+            if (userIds.Count == 0)
+            {
+                return new Empty();
+            }
+
             _userRepo.RemoveUser(userIds);
             return new Empty();
         }
