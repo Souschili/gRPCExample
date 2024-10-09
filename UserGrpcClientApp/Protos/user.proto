@@ -7,7 +7,6 @@ package user;
 // импортируем пустоту (отсутсвие аргументов ) при вызове 
 import "google/protobuf/empty.proto";
 
-// определяем сервис 
 service UserService{
 	// сервер передает поток на клиент 
 	rpc GetAll(google.protobuf.Empty) returns(stream UserResponse);
@@ -18,16 +17,11 @@ service UserService{
 	// клиент отправляет а сервер ничего не возрашает
 	rpc UpdateUser(UserUpdateRequest) returns(google.protobuf.Empty);
 	// двунаправленный поток 
-	rpc UserCreate(stream UserCreateRequest) returns(stream UserCreateReply);
+	rpc UserCreate(stream UserCreateRequest) returns(stream UserResponse);
 }
 
 message UserCreateRequest{
 	string Name=1;
-}
-
-message UserCreateReply{
-	int32 Id=1;
-	string Name=2;
 }
 
 message UserUpdateRequest{
@@ -38,9 +32,9 @@ message UserUpdateRequest{
 message UserResponse{
 	int32 Id = 1;
 	string Name = 2;
+	string Email = 3;
 }
 
 message UserIdRequest{
-	int32 Id=1;
+	int32 Id = 1;
 }
-

@@ -30,14 +30,14 @@ namespace UserGrpcService.Services
         //    return new Empty();
         //}
 
-        //public override async Task GetAll(Empty request, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
-        //{
-        //    var users = _userRepo.All();
-        //    foreach (var user in users)
-        //    {
-        //        await responseStream.WriteAsync(user);
-        //    }
-        //}
+        public override async Task GetAll(Empty request, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
+        {
+            var users = _userRepo.All();
+            foreach (var user in users)
+            {
+                await responseStream.WriteAsync(user);
+            }
+        }
 
         //public override Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
         //{
