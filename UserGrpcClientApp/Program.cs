@@ -82,7 +82,6 @@ namespace UserGrpcClientApp
             // получаем все данные через асинхронный поток IAsyncEnumerable
             await foreach (var user in call.ResponseStream.ReadAllAsync())
             {
-                //Console.WriteLine($"Responce from server: {user.Id} {user.Name} ");
                 Console.WriteLine($"Responce from server: {user.MapToUser().ToString()} ");
             }
         }
