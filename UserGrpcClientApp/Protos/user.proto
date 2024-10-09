@@ -11,8 +11,10 @@ import "google/protobuf/empty.proto";
 service UserService{
 	// сервер передает поток на клиент 
 	rpc GetAll(google.protobuf.Empty) returns(stream UserResponse);
+	// сервер передает а клиент отвечает
 	rpc GetUserById(UserIdRequest) returns(UserResponse);
-	rpc DeleteUser(UserIdRequest) returns(google.protobuf.Empty);
+	// клиент передает поток серверу
+	rpc DeleteUser(stream UserIdRequest) returns(google.protobuf.Empty);
 }
 
 message UserResponse{

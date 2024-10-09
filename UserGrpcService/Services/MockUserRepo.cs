@@ -17,18 +17,18 @@ namespace UserGrpcService.Services
             return _userRepo;
         }
 
-        public void RemoveUser(int id)
+        public void RemoveUser(IEnumerable<int> listId)
         {
-            var user = _userRepo.Find(x => x.Id == id);
-            if (user != null)
-            {
-                _userRepo.Remove(user);
-            }
-            else
-            {
-                throw new RpcException(new Status(StatusCode.NotFound,"User not found"));
-            }
+            // если список будет содержать больше 100 элементов 
+            // то стоит рассмотреть вараинт с использованием HashSet<T> 
+            // где время поиска равно O(1) а в списке оно O(n)
+            //HashSet<int> hashSetIds = new HashSet<int>(listId);
+            //_userRepo.RemoveAll(x => hashSetIds.Contains(x.Id));
+
+            var ids = _userRepo.Select(x => x.Id);
+            _userRepo.RemoveAll(x=> ids.Contains(x.Id));
         }
+
         public UserResponse? GetUserById(int id) =>
             _userRepo.FirstOrDefault(x => x.Id == id);
     }
