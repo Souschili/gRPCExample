@@ -45,7 +45,7 @@ namespace UserGrpcClientApp
                         Console.WriteLine("Wrong input try again or press 0 to exit");
                         continue;
                     }
-                    if (menuKey == 0 || menuKey<0) break; // выходим из цикла и завершаем работу
+                    if (menuKey == 0 || menuKey < 0) break; // выходим из цикла и завершаем работу
 
                     // тут передаем номер меню 
                     await InvokeMenu(menuKey);
@@ -66,6 +66,7 @@ namespace UserGrpcClientApp
             await (menuPoint switch
             {
                 1 => GetUsers(),
+                2 => GetUserByIdAsync(),
                 _ => Task.Run(() => Console.WriteLine("Unknown method searched"))
             });
         }
@@ -83,11 +84,59 @@ namespace UserGrpcClientApp
                 Console.WriteLine($"Responce from server: {user.Id} {user.Name} ");
             }
         }
+        static async Task GetUserByIdAsync()
+        {
+            try
+            {
+                int userId;
+                Console.Write("User ID: ");
+                while (true) { 
+                
+                    if(!Int32.TryParse(Console.ReadLine(), out int id) || id<0)
+                    {
+                        Console.WriteLine("Wrong input try again or input 0 to cancel");
+                        continue ;
+                    }
+                    userId = id;
+                    break;
+                }
+
+                if (userId == 0)
+                {
+                    Console.WriteLine("Operation cancelled."); // Отмена операции
+                    return; // Завершаем метод
+                }
+
+                // получаем клиент
+                var client = GrpcServiceClientFactory.GetUserServiceClient();
+                // создаем модель для запроса
+                var request = new UserIdRequest { Id = userId };
+
+                //запрос серверу,
+                //прото генерирует 2 варианта сервисных методов синхроный и асинхронный
+                var user = await client.GetUserByIdAsync(request);
+                Console.WriteLine($"{user.Id} {user.Name}");
+
+            }
+            // сработает если на сервере будет исключение 404(Not Found) 
+            // клиент получчит екстошибки и статус код
+            catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            // общий перехватчик
+            catch (Exception ex)
+            {
+
+                Console.WriteLine($"error ocured {ex.Message}");
+            }
+        }
 
         public static void ShowMenu()
         {
             Console.WriteLine("--------------------------");
             Console.WriteLine("1. Get all users");
+            Console.WriteLine("2. Get user by Id");
             Console.WriteLine("0. Exit");
             Console.WriteLine("--------------------------");
         }
