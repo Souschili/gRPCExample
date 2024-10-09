@@ -47,5 +47,21 @@ namespace UserGrpcService.Services
             // генерируем RcpException ошибку для клиента , ну и для сервера(если логировать будем)
             throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
         }
+
+        public override Task<Empty> UpdateUser(UserUpdateRequest request, ServerCallContext context)
+        {
+                _userRepo.UpdateUser(request);
+                return Task.FromResult(new Empty()); 
+        }
+
+        public override async Task UserCreate(IAsyncStreamReader<UserCreateRequest> requestStream, IServerStreamWriter<UserCreateReply> responseStream, ServerCallContext context)
+        {
+            List<UserCreateRequest> createList=new List<UserCreateRequest>();
+            await foreach(var request in requestStream.ReadAllAsync())
+            {
+                createList.Add(request);
+            }
+            throw new RpcException(new Status(StatusCode.Unimplemented,"Not implemented"));
+        }
     }
 }

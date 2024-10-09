@@ -31,5 +31,20 @@ namespace UserGrpcService.Services
 
         public UserResponse? GetUserById(int id) =>
             _userRepo.FirstOrDefault(x => x.Id == id);
+
+        public void UpdateUser(UserUpdateRequest request)
+        {
+            var user=_userRepo.FirstOrDefault(x=> x.Id == request.Id);
+            if (user is null)
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
+            user.Name = request.Name;
+        }
+
+        //public UserCreateReply UserCreate(IEnumerable<UserCreateReply> requestList)
+        //{
+        //    // 
+        //    var countId = _userRepo.Max(x => x.Id);
+
+        //}
     }
 }
