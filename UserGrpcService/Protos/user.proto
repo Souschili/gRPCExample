@@ -32,9 +32,10 @@ message UserUpdateRequest{
 message UserResponse{
 	int32 Id = 1;
 	string Name = 2;
+	string Email = 3;
 }
 
 message UserIdRequest{
-	int32 Id=1;
+	int32 Id = 1;
 }
 

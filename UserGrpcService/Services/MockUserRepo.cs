@@ -13,10 +13,16 @@ namespace UserGrpcService.Services
             new User{Id=4,Name="Renat",Email="test4@demo.az"},
             ];
 
-        //public IEnumerable<UserResponse> All()
-        //{
-        //    return _userRepo;
-        //}
+        public IEnumerable<UserResponse> All()
+        {
+            var users = _userRepo.Select(x => new UserResponse
+            {
+                Id=x.Id,
+                Name=x.Name,
+                Email=x.Email,
+            });
+            return users;
+        }
 
         //public void RemoveUser(IEnumerable<int> listId)
         //{
@@ -41,6 +47,6 @@ namespace UserGrpcService.Services
         //    user.Name = request.Name;
         //}
 
-       
+
     }
 }
