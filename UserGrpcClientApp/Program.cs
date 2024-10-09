@@ -119,7 +119,7 @@ namespace UserGrpcClientApp
 
             }
             // сработает если на сервере будет исключение 404(Not Found) 
-            // клиент получчит екстошибки и статус код
+            // клиент получит текст ошибки и статус код
             catch (RpcException ex) when (ex.StatusCode == StatusCode.NotFound)
             {
                 Console.WriteLine(ex.Message);
