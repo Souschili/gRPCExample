@@ -40,11 +40,6 @@ namespace UserGrpcService.Services
             user.Name = request.Name;
         }
 
-        //public UserCreateReply UserCreate(IEnumerable<UserCreateReply> requestList)
-        //{
-        //    // 
-        //    var countId = _userRepo.Max(x => x.Id);
-
-        //}
+       
     }
 }
