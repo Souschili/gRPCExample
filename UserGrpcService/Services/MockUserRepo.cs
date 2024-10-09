@@ -1,4 +1,5 @@
-﻿using UserGrpcService.Protos;
+﻿using Grpc.Core;
+using UserGrpcService.Protos;
 
 namespace UserGrpcService.Services
 {
@@ -16,7 +17,19 @@ namespace UserGrpcService.Services
             return _userRepo;
         }
 
-        public UserResponse? GetUserById(int id)=>
-            _userRepo.FirstOrDefault(x=> x.Id==id);
+        public void RemoveUser(int id)
+        {
+            var user = _userRepo.Find(x => x.Id == id);
+            if (user != null)
+            {
+                _userRepo.Remove(user);
+            }
+            else
+            {
+                throw new RpcException(new Status(StatusCode.NotFound,"User not found"));
+            }
+        }
+        public UserResponse? GetUserById(int id) =>
+            _userRepo.FirstOrDefault(x => x.Id == id);
     }
 }

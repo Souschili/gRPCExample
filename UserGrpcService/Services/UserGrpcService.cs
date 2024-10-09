@@ -12,6 +12,13 @@ namespace UserGrpcService.Services
         {
             _userRepo = userRepo;
         }
+
+        public override Task<Empty> DeleteUser(UserIdRequest request, ServerCallContext context)
+        {
+            _userRepo.RemoveUser(request.Id);
+            return Task.FromResult(new Empty());
+        }
+
         public override async Task GetAll(Empty request, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
         {
             var users = _userRepo.All();
