@@ -12,6 +12,7 @@ service UserService{
 	// сервер передает поток на клиент 
 	rpc GetAll(google.protobuf.Empty) returns(stream UserResponse);
 	rpc GetUserById(UserIdRequest) returns(UserResponse);
+	rpc DeleteUser(UserIdRequest) returns(google.protobuf.Empty);
 }
 
 message UserResponse{
