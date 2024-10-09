@@ -1,5 +1,6 @@
 ﻿using Grpc.Core;
 using Grpc.Net.Client;
+using SharedModels;
 using UserGrpcClientApp.Protos;
 
 namespace UserGrpcClientApp
