@@ -15,6 +15,24 @@ service UserService{
 	rpc GetUserById(UserIdRequest) returns(UserResponse);
 	// клиент передает поток серверу
 	rpc DeleteUser(stream UserIdRequest) returns(google.protobuf.Empty);
+	// клиент отправляет а сервер ничего не возрашает
+	rpc UpdateUser(UserUpdateRequest) returns(google.protobuf.Empty);
+	// двунаправленный поток 
+	rpc UserCreate(stream UserCreateRequest) returns(stream UserCreateReply);
+}
+
+message UserCreateRequest{
+	string Name=1;
+}
+
+message UserCreateReply{
+	int32 Id=1;
+	string Name=2;
+}
+
+message UserUpdateRequest{
+	int32 Id=1;
+	string Name=2;
 }
 
 message UserResponse{
