@@ -39,14 +39,14 @@ namespace UserGrpcService.Services
             }
         }
 
-        //public override Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
-        //{
-        //    var user = _userRepo.GetUserById(request.Id);
-        //    if (user != null)
-        //        return Task.FromResult(user); //так как результат уже есть то async\await ненужен 
-        //    // генерируем RcpException ошибку для клиента , ну и для сервера(если логировать будем)
-        //    throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
-        //}
+        public override Task<UserResponse> GetUserById(UserIdRequest request, ServerCallContext context)
+        {
+            var user = _userRepo.GetUserById(request.Id);
+            if (user != null)
+                return Task.FromResult(user.MapToUserResponse()); //так как результат уже есть то async\await ненужен 
+            // генерируем RcpException ошибку для клиента , ну и для сервера(если логировать будем)
+            throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
+        }
 
         //public override Task<Empty> UpdateUser(UserUpdateRequest request, ServerCallContext context)
         //{
