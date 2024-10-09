@@ -17,16 +17,11 @@ service UserService{
 	// клиент отправляет а сервер ничего не возрашает
 	rpc UpdateUser(UserUpdateRequest) returns(google.protobuf.Empty);
 	// двунаправленный поток 
-	rpc UserCreate(stream UserCreateRequest) returns(stream UserCreateReply);
+	rpc UserCreate(stream UserCreateRequest) returns(stream UserResponse);
 }
 
 message UserCreateRequest{
 	string Name=1;
-}
-
-message UserCreateReply{
-	int32 id=1;
-	string Name=2;
 }
 
 message UserUpdateRequest{

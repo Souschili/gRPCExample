@@ -5,7 +5,11 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserGrpcService", "UserGrpcService\UserGrpcService.csproj", "{936CD380-5273-47F8-9378-61FD14B2E3AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserGrpcClientApp", "UserGrpcClientApp\UserGrpcClientApp.csproj", "{9698872B-046A-4D2A-8987-F1559A9B12D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserGrpcClientApp", "UserGrpcClientApp\UserGrpcClientApp.csproj", "{9698872B-046A-4D2A-8987-F1559A9B12D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D171FC4D-9C1B-4502-BF11-B931EE7774D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedModels", "SharedModels\SharedModels.csproj", "{E33553A9-54CC-4852-A6D3-E621BD857603}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,9 +25,16 @@ Global
 		{9698872B-046A-4D2A-8987-F1559A9B12D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9698872B-046A-4D2A-8987-F1559A9B12D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9698872B-046A-4D2A-8987-F1559A9B12D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33553A9-54CC-4852-A6D3-E621BD857603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33553A9-54CC-4852-A6D3-E621BD857603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33553A9-54CC-4852-A6D3-E621BD857603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33553A9-54CC-4852-A6D3-E621BD857603}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E33553A9-54CC-4852-A6D3-E621BD857603} = {D171FC4D-9C1B-4502-BF11-B931EE7774D0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0CC47DA8-853A-4E4A-958E-D82B61FE284A}

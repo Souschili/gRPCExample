@@ -54,7 +54,7 @@ namespace UserGrpcService.Services
                 return Task.FromResult(new Empty()); 
         }
 
-        public override async Task UserCreate(IAsyncStreamReader<UserCreateRequest> requestStream, IServerStreamWriter<UserCreateReply> responseStream, ServerCallContext context)
+        public override async Task UserCreate(IAsyncStreamReader<UserCreateRequest> requestStream, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
         {
             List<UserCreateRequest> createList=new List<UserCreateRequest>();
             await foreach(var request in requestStream.ReadAllAsync())
