@@ -48,11 +48,11 @@ namespace UserGrpcService.Services
             throw new RpcException(new Status(StatusCode.NotFound, $"User with {request.Id} not found"));
         }
 
-        //public override Task<Empty> UpdateUser(UserUpdateRequest request, ServerCallContext context)
-        //{
-        //        _userRepo.UpdateUser(request);
-        //        return Task.FromResult(new Empty()); 
-        //}
+        public override Task<Empty> UpdateUser(UserUpdateRequest request, ServerCallContext context)
+        {
+            _userRepo.UpdateUser(request);
+            return Task.FromResult(new Empty());
+        }
 
         //public override async Task UserCreate(IAsyncStreamReader<UserCreateRequest> requestStream, IServerStreamWriter<UserResponse> responseStream, ServerCallContext context)
         //{

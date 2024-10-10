@@ -27,6 +27,7 @@ message UserCreateRequest{
 message UserUpdateRequest{
 	int32 Id=1;
 	string Name=2;
+	string Email=3;
 }
 
 message UserResponse{

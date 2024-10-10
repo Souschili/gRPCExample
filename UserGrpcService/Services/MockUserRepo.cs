@@ -39,13 +39,14 @@ namespace UserGrpcService.Services
         public User? GetUserById(int id) =>
             _userRepo.FirstOrDefault(x => x.Id == id);
 
-        //public void UpdateUser(UserUpdateRequest request)
-        //{
-        //    var user=_userRepo.FirstOrDefault(x=> x.Id == request.Id);
-        //    if (user is null)
-        //        throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
-        //    user.Name = request.Name;
-        //}
+        public void UpdateUser(UserUpdateRequest request)
+        {
+            var user = _userRepo.FirstOrDefault(x => x.Id == request.Id);
+            if (user is null)
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
+            user.Name = request.Name;
+            user.Email=request.Email;
+        }
 
 
     }
